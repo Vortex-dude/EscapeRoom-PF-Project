@@ -77,7 +77,7 @@ Enter the **number** shown next to an option and press **Enter**.
 - The timer tracks elapsed time (it is **not** a countdown in this version). Your final time and score are shown when the game ends.
 ---
  
-## 📚 C Concepts Demonstrated
+##  C Concepts Demonstrated
  
 - Structures (`struct`) and `typedef` for managing complete game state
 - Passing structures by **pointer** to functions
