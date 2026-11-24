@@ -46,6 +46,7 @@ Escape Room is a console-based adventure game written in C for the Programming F
 - **Description:** Tests the scoring system that starts at 1000 points and applies time and point penalties for mistakes and wasted actions.
 - **Inputs:** Enter a wrong door code in Room 1, give a wrong riddle answer, enter the spiral passage in Room 2 and search the broken tube for debris.
 - **Expected Output:** The status bar updates after each action. A wrong door code costs 10 seconds and 25 points, a wrong puzzle answer costs 5 seconds and 15 points, the spiral passage dead end costs 30 seconds and 10 points (first visit only), and searching the broken glass costs 15 seconds. The score never drops below 0 and the final time includes all penalties.
+- - **Screenshot:** ![Case 2](screenshots/case7(a)_execution.png)
 
 ### Case 8: Invalid Input & Error Handling
 - **Description:** Tests how the program handles unexpected inputs at menus, yes/no prompts, maze controls, locked doors and missing items.
