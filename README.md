@@ -18,11 +18,14 @@ Escape Room is a console-based adventure game written in C for the Programming F
 - **Description:** Tests searching objects in the Laboratory to collect the four coloured digits (BLUE, RED, GREEN, YELLOW) and entering the code in the correct door order (GREEN, BLUE, YELLOW, RED). The digits are random each game.
 - **Inputs:** `1` (top tube), `3` (cupboard), `4` then `SHADOW` (picture frame riddle), `5` then `LAB` (centre table puzzle), then `8` (door) and the code, e.g. if BLUE=3, RED=7, GREEN=1, YELLOW=9 enter `1397`.
 - **Expected Output:** Each search reveals its coloured digit (e.g. "Inside, you find a digit marked BLUE: 3"). The door shows the slot order `GREEN BLUE YELLOW RED`. A correct code prints "The lock clicks open. You enter Room 2." and moves the player to Room 2.
+- - **Screenshot:** ![Case 2](screenshots/case2(a)_execution.png)
+  - - **Screenshot:** ![Case 2](screenshots/case2(b)_execution.png)
 
 ### Case 3: Inventory Management (Pickup, Capacity & Discard)
 - **Description:** Tests the three-slot inventory: picking up items, being blocked when full, discarding an item back to its original location and collecting it again.
 - **Inputs:** In Room 1: `2` (search broken tube, glue), `3` then `y` (take glove), `7` then `y` (take key), then `9` to open the inventory. Try picking up a fourth item, then discard one using its number.
 - **Expected Output:** Items are listed as `1. Glue tube`, `2. Rubber glove`, `3. Useless key` with "Slots used: 3/3". A fourth pickup prints "Your inventory is full. Discard an item before collecting this one." Discarding prints "<item> returned to its original location." and the item can be collected again from where it was found.
+- - **Screenshot:** ![Case 2](screenshots/case3_execution.png)
 
 ### Case 4: Room 2 Puzzle Chain (Wardrobe, Computer, Statue Key)
 - **Description:** Tests the multi-step puzzle in the Statue Room: finding the password, reading the computer, obtaining the statue key and exchanging it for the Room 3 key.
