@@ -1,184 +1,57 @@
 # Escape Room: A Text-Based Adventure in C
 
-A console-based escape room game written in pure C for the **Programming Fundamentals (CS-1002)** course at FAST-NUCES Karachi. You wake up on the floor of a strange laboratory with no memory and the door locked. Explore three connected areas, collect items, solve puzzles, cross a maze, and find your way out of the building.
+## Section A: Project Introduction
+
+Escape Room is a console-based adventure game written in C for the Programming Fundamentals (CS-1002) course. The player wakes up locked inside a laboratory and must escape the building by exploring three connected areas, collecting items, solving puzzles and crossing a maze. The core objective is to apply fundamental C concepts (structures, pointers, arrays, 2D arrays, functions, string handling and safe input validation) in a complete, interactive program. The main features implemented are a randomised four-digit door code, four randomly selected maze layouts with fog-of-war, a three-slot inventory system with item pickup, discard and consumption, clue-based puzzles across three rooms, a score and elapsed-time system with penalties, and robust input handling that re-prompts the user on invalid entries.
 
 ---
 
-## Table of Contents
+## Section B: Features & Test Cases (Execution Scenarios)
 
-- [Features](#features)
-- [Story](#story)
-- [Getting Started](#getting-started)
-- [Gameplay Overview](#gameplay-overview)
-- [Controls](#controls)
-- [Scoring and Timer](#scoring-and-timer)
-- [Project Structure](#project-structure)
-- [C Concepts Demonstrated](#c-concepts-demonstrated)
-- [Known Limitations](#known-limitations)
-- [Authors](#authors)
+### Case 1: Main Menu & Instructions
+- **Description:** Tests the main menu loop, which lets the player start a game, read the instructions or exit, and keeps showing the menu until Exit is chosen.
+- **Inputs:** `2` (Instructions), press Enter, then `1` (Start a new game).
+- **Expected Output:** The instructions screen lists the rules (3-item inventory, W/A/S/D maze controls, count-up timer). After pressing Enter the menu returns. Choosing `1` prints "You wake up on the floor of a strange laboratory." and opens Room 1 with the status bar (`ROOM`, `TIME`, `SCORE: 1000`).
+- **Screenshot:** ![Case 1](screenshots/case1_execution.png)
 
----
+### Case 2: Room 1 Clue Collection & Unlocking the Door
+- **Description:** Tests searching objects in the Laboratory to collect the four coloured digits (BLUE, RED, GREEN, YELLOW) and entering the code in the correct door order (GREEN, BLUE, YELLOW, RED). The digits are random each game.
+- **Inputs:** `1` (top tube), `3` (cupboard), `4` then `SHADOW` (picture frame riddle), `5` then `LAB` (centre table puzzle), then `8` (door) and the code, e.g. if BLUE=3, RED=7, GREEN=1, YELLOW=9 enter `1397`.
+- **Expected Output:** Each search reveals its coloured digit (e.g. "Inside, you find a digit marked BLUE: 3"). The door shows the slot order `GREEN BLUE YELLOW RED`. A correct code prints "The lock clicks open. You enter Room 2." and moves the player to Room 2.
+- **Screenshot:** ![Case 2](screenshots/case2_execution.png)
 
-## Features
+### Case 3: Inventory Management (Pickup, Capacity & Discard)
+- **Description:** Tests the three-slot inventory: picking up items, being blocked when full, discarding an item back to its original location and collecting it again.
+- **Inputs:** In Room 1: `2` (search broken tube, glue), `3` then `y` (take glove), `7` then `y` (take key), then `9` to open the inventory. Try picking up a fourth item, then discard one using its number.
+- **Expected Output:** Items are listed as `1. Glue tube`, `2. Rubber glove`, `3. Useless key` with "Slots used: 3/3". A fourth pickup prints "Your inventory is full. Discard an item before collecting this one." Discarding prints "<item> returned to its original location." and the item can be collected again from where it was found.
+- **Screenshot:** ![Case 3](screenshots/case3_execution.png)
 
-- **Three explorable areas**: the Laboratory, the Statue Chamber and the Archive, with free movement back and forth between them.
-- **Randomised four-digit door code**: the digits are regenerated every new game, so no two playthroughs are identical.
-- **Four maze layouts**: one is picked at random each game, with fog of war that reveals nearby cells and remembers explored areas.
-- **Limited inventory**: only 3 items can be carried at once. Discarded items return to where you found them.
-- **Item-based puzzles**: five items (Rubber glove, Glue tube, Old key, Small key and Brass key) are used to unlock progress or earn bonus points.
-- **Score and timer system**: mistakes and wasted actions cost points and time, and some puzzles give bonus points.
-- **Robust input handling**: invalid numbers, extra characters and overlong text input are handled without crashing the game.
-- **Menu system**: start a new game, read the instructions, or exit.
-- **Coloured, boxed output** using ANSI escape codes.
+### Case 4: Room 2 Puzzle Chain (Wardrobe, Computer, Statue Key)
+- **Description:** Tests the multi-step puzzle in the Statue Room: finding the password, reading the computer, obtaining the statue key and exchanging it for the Room 3 key.
+- **Inputs:** `2` twice (wardrobe), `4` then `1997` (computer), `1` (toilet), `3` then `y` (statue and use key), then `6` (door to Room 3).
+- **Expected Output:** The first wardrobe search finds nothing, the second reveals the password `1997`. The computer prints "ACCESS GRANTED." and a backstory passage. The toilet gives the Statue key; using it prints "The key fits. A compartment opens in the statue." and adds the Room 3 key. Option `6` unlocks the door and enters Room 3.
+- **Screenshot:** ![Case 4](screenshots/case4_execution.png)
 
----
+### Case 5: Maze Navigation with Fog-of-War
+- **Description:** Tests movement through a randomly selected maze layout, wall collision, the explored-area display and the ability to leave and resume.
+- **Inputs:** `W`, `A`, `S`, `D` (one key per move, lowercase also accepted), a move into a wall, and `B` to go back to Room 2, then re-enter Room 3.
+- **Expected Output:** The map shows `@` (player), `?` (unexplored), `#` (wall), `.` (path), with only adjacent cells revealed and explored cells staying visible. Walking into a wall prints "A wall blocks your way." Each step adds 2 seconds to the timer. `B` returns to Room 2 with "Your maze progress is saved." Reaching `E` prints "You have reached the far side of the maze!" and the maze is bypassed on later visits.
+- **Screenshot:** ![Case 5](screenshots/case5_execution.png)
 
-## Story
+### Case 6: Final Area & Escaping the Building
+- **Description:** Tests the final puzzles in Room 3 and the winning condition, which requires the rubber glove for the fingerprint scanner.
+- **Inputs:** `1` then `GLOVE` (table puzzle), `2` then `y` (safe with the small key), `3` (glue on cracked panel), `4` then `y` (use glove on scanner).
+- **Expected Output:** The table puzzle prints a hint and awards +25 points. The safe opens with a click and reveals a backstory passage. The glue repairs the panel (+25 points). Using the glove on the scanner prints "The lock releases. You step outside." followed by the "YOU ESCAPED!" banner, the final time and the final score.
+- **Screenshot:** ![Case 6](screenshots/case6_execution.png)
 
-You wake beside a shattered containment cylinder in an unfamiliar laboratory, with a throbbing head and a blank memory. The heavy steel door is sealed. Notes, a computer terminal and hidden files slowly reveal who you are and what happened here. Piece it together, and get out.
+### Case 7: Score, Timer & Penalties
+- **Description:** Tests the scoring system that starts at 1000 points and applies time and point penalties for mistakes and wasted actions.
+- **Inputs:** Enter a wrong door code in Room 1, give a wrong riddle answer, enter the spiral passage in Room 2 and search the broken tube for debris.
+- **Expected Output:** The status bar updates after each action. A wrong door code costs 10 seconds and 25 points, a wrong puzzle answer costs 5 seconds and 15 points, the spiral passage dead end costs 30 seconds and 10 points (first visit only), and searching the broken glass costs 15 seconds. The score never drops below 0 and the final time includes all penalties.
+- **Screenshot:** ![Case 7](screenshots/case7_execution.png)
 
----
-
-## Getting Started
-
-**Requirements:** a C compiler such as GCC, and a terminal that supports ANSI colour codes. The game was compiled and played through with GCC on Linux. The code also contains a Windows-only line that switches on coloured text in the Windows console.
-
-**Compile:**
-
-```bash
-gcc -o escape_room escape_room_v2.c
-```
-
-**Run:**
-
-```bash
-./escape_room
-```
-
-On Windows, run `escape_room.exe` instead.
-
----
-
-## Gameplay Overview
-
-| Area | Description |
-|------|-------------|
-| **Room 1: The Laboratory** | Search the experiment tubes, cupboard, picture frame, centre table, notebook on the desk and the trash bin. Gather clues to build the four-digit code for the door. |
-| **Room 2: The Statue Chamber** | Search the washroom and wardrobe, use the old computer terminal, examine the statue and find the key to the next door. |
-| **Room 3: The Archive** | Cross a randomly chosen maze, then use the table, wall safe, damaged panel and your items to reach the fingerprint-locked exit. |
-
-**Items:** Rubber glove, Glue tube, Old key, Small key and Brass key. Some are needed to escape and some only earn bonus points, and you can carry only three at a time.
-
-> **Tip:** Items you don't need right now can be discarded and picked up again later. Think carefully about what to carry, since you only have three slots.
-
----
-
-## Controls
-
-### Menus and Rooms
-
-Enter the **number** shown next to an option and press **Enter**. For yes/no questions, type `y` or `n`. In Room 1, option `0` quits to the main menu (progress is lost).
-
-### Maze Navigation
-
-Keys are not case sensitive, and each move must be a single key.
-
-| Key | Action |
-|-----|--------|
-| `W` | Move up |
-| `A` | Move left |
-| `S` | Move down |
-| `D` | Move right |
-| `B` | Go back to Room 2 (progress is saved) |
-
-### Map Legend
-
-| Symbol | Meaning |
-|--------|---------|
-| `@` | You |
-| `?` | Unexplored |
-| `#` | Wall |
-| `.` | Path |
-| `S` / `E` | Start / Exit |
-
----
-
-## Scoring and Timer
-
-- You start with **1000 points**, and your score never drops below 0.
-- The timer shows real elapsed time plus time penalties. It is **not** a countdown in this version.
-- Your final time and score are shown when the game ends.
-
-| Event | Score | Time |
-|-------|-------|------|
-| Wrong riddle or sequence answer | -15 | +5 s |
-| Wrong door code | -25 | +10 s |
-| Wrong terminal password | -15 | +5 s |
-| Spiral passage dead end (first visit) | -10 | +30 s |
-| Searching the middle experiment tube | none | +15 s |
-| Each maze step | none | +2 s |
-| Archive table riddle solved | +25 | none |
-| Wall safe opened | +50 | none |
-| Damaged panel repaired | +50 | none |
-
----
-
-## Project Structure
-
-```
-.
-├── escape_room_v2.c   # complete game source code (single file)
-└── README.md          # this file
-```
-
-Inside `escape_room_v2.c`, the code is split into small functions:
-
-| Part | Main functions |
-|------|----------------|
-| Game state | `GameState`, `initialiseGame` |
-| Menus and display | `mainMenu`, `showInstructions`, `showStatus`, `printBoxHeader`, `printStoryBox` |
-| Rooms | `room1`, `room2`, `room3` |
-| Room actions | `searchRoom1Object`, `attemptRoom1Door`, `interactStatue`, `attemptRoom2Computer`, `attemptRoom3Door`, `interactSafe`, `interactDamagedPanel`, `attemptFinalDoor` |
-| Maze | `navigateMaze`, `revealNearby`, `displayMaze` |
-| Inventory | `addItem`, `hasItem`, `consumeItem`, `returnItemToOrigin`, `manageInventory`, `selectInventoryItem` |
-| Input | `readInteger`, `readText`, `trimWhitespace`, `sameText`, `askYesNo`, `pressEnter` |
-| Score and timer | `addPenalty`, `elapsedSeconds` |
-
----
-
-## C Concepts Demonstrated
-
-- Structures (`struct`) and `typedef` for managing complete game state
-- Passing structures by **pointer** to functions
-- Arrays and **2D arrays** (maze layouts, explored-cell tracking)
-- Arrays of strings and `const` data
-- Modular programming with function prototypes
-- Loops, `switch` statements and conditional logic
-- String handling: `strcmp`, `strlen`, `toupper`, custom case-insensitive comparison
-- Safe input using `fgets` and `sscanf` instead of raw `scanf`
-- Random number generation with `rand()` and `srand()`
-- Time handling with `time()` and `difftime()`
-- Macros (`#define`) for readable constants
-
----
-
-## Known Limitations
-
-- Progress is lost when the game is closed or you quit to the main menu. There is no save or load.
-- The game is console-only, and coloured output needs a terminal that supports ANSI escape codes.
-- Only the four code digits, the riddle for the GREEN digit and the maze change between games. The other puzzles and item locations are the same every time.
-- The four mazes are written out by hand in the code.
-- The timer only counts upward. There is no time limit.
-- A very long number typed at a numeric prompt is read as two separate entries. Text prompts discard the extra characters. Neither case crashes the game.
-- There is no hint system, and the game supports one player only.
-
----
-
-## Authors
-
-**Ayan Gul Memon** (Roll No: 26K-2060)
-**M. Arsalan Zafar** (Roll No: 26K-2036)
-**Choudhry Zoraiz Qadir** (Roll No: 26K-2037)
-
-BS Cyber Security, Section BS-CYS-1B
-FAST-NUCES Karachi
+### Case 8: Invalid Input & Error Handling
+- **Description:** Tests how the program handles unexpected inputs at menus, yes/no prompts, maze controls, locked doors and missing items.
+- **Inputs:** `abc`, `5x`, `99` and an empty line at a menu; `maybe` at a yes/no prompt; `WW` and `X` in the maze; an overlong string at a text prompt; the door to Room 3 without its key; the scanner without the glove.
+- **Expected Output:** Non-numeric entries print "Please enter a valid whole number." and re-prompt. Out-of-range numbers print "Invalid choice." Yes/no prompts print "Please enter Y or N." until valid. Maze errors print "Enter one movement key at a time." or "Unknown movement key." Locked doors print "The door is locked. You need its key." and the scanner prints "You cannot operate the scanner without the rubber glove." The program never crashes and extra input is safely discarded.
+- **Screenshot:** ![Case 8](screenshots/case8_execution.png)
