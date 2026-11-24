@@ -1,4 +1,4 @@
-<img width="518" height="763" alt="image" src="https://github.com/user-attachments/assets/a356ed84-e8e0-4bc4-ab5f-dadc02649ac9" /># Escape Room: A Text-Based Adventure in C
+# Escape Room: A Text-Based Adventure in C
 
 ## Section A: Project Introduction
 
