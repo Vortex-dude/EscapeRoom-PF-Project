@@ -1,4 +1,4 @@
-# Escape Room: A Text-Based Adventure in C
+<img width="518" height="763" alt="image" src="https://github.com/user-attachments/assets/a356ed84-e8e0-4bc4-ab5f-dadc02649ac9" /># Escape Room: A Text-Based Adventure in C
 
 ## Section A: Project Introduction
 
@@ -18,14 +18,14 @@ Escape Room is a console-based adventure game written in C for the Programming F
 - **Description:** Tests searching objects in the Laboratory to collect the four coloured digits (BLUE, RED, GREEN, YELLOW) and entering the code in the correct door order (GREEN, BLUE, YELLOW, RED). The digits are random each game.
 - **Inputs:** `1` (top tube), `3` (cupboard), `4` then `SHADOW` (picture frame riddle), `5` then `LAB` (centre table puzzle), then `8` (door) and the code, e.g. if BLUE=3, RED=7, GREEN=1, YELLOW=9 enter `1397`.
 - **Expected Output:** Each search reveals its coloured digit (e.g. "Inside, you find a digit marked BLUE: 3"). The door shows the slot order `GREEN BLUE YELLOW RED`. A correct code prints "The lock clicks open. You enter Room 2." and moves the player to Room 2.
-- - **Screenshot:** ![Case 2](screenshots/case2(a)_execution.png)
-  - - **Screenshot:** ![Case 2](screenshots/case2(b)_execution.png)
+- - **Screenshot:** ![Case 7](screenshots/case2(a)_execution.png)
+  - - **Screenshot:** ![Case 7](screenshots/case2(b)_execution.png)
 
 ### Case 3: Inventory Management (Pickup, Capacity & Discard)
 - **Description:** Tests the three-slot inventory: picking up items, being blocked when full, discarding an item back to its original location and collecting it again.
 - **Inputs:** In Room 1: `2` (search broken tube, glue), `3` then `y` (take glove), `7` then `y` (take key), then `9` to open the inventory. Try picking up a fourth item, then discard one using its number.
 - **Expected Output:** Items are listed as `1. Glue tube`, `2. Rubber glove`, `3. Useless key` with "Slots used: 3/3". A fourth pickup prints "Your inventory is full. Discard an item before collecting this one." Discarding prints "<item> returned to its original location." and the item can be collected again from where it was found.
-- - **Screenshot:** ![Case 2](screenshots/case3_execution.png)
+- - **Screenshot:** ![Case 3](screenshots/case3_execution.png)
 
 ### Case 4: Room 2 Puzzle Chain (Wardrobe, Computer, Statue Key)
 - **Description:** Tests the multi-step puzzle in the Statue Room: finding the password, reading the computer, obtaining the statue key and exchanging it for the Room 3 key.
@@ -46,9 +46,11 @@ Escape Room is a console-based adventure game written in C for the Programming F
 - **Description:** Tests the scoring system that starts at 1000 points and applies time and point penalties for mistakes and wasted actions.
 - **Inputs:** Enter a wrong door code in Room 1, give a wrong riddle answer, enter the spiral passage in Room 2 and search the broken tube for debris.
 - **Expected Output:** The status bar updates after each action. A wrong door code costs 10 seconds and 25 points, a wrong puzzle answer costs 5 seconds and 15 points, the spiral passage dead end costs 30 seconds and 10 points (first visit only), and searching the broken glass costs 15 seconds. The score never drops below 0 and the final time includes all penalties.
-- - **Screenshot:** ![Case 2](screenshots/case7(a)_execution.png)
+- - **Screenshot:** ![Case 7](screenshots/case7(a)_execution.png)
 
 ### Case 8: Invalid Input & Error Handling
 - **Description:** Tests how the program handles unexpected inputs at menus, yes/no prompts, maze controls, locked doors and missing items.
 - **Inputs:** `abc`, `5x`, `99` and an empty line at a menu; `maybe` at a yes/no prompt; `WW` and `X` in the maze; an overlong string at a text prompt; the door to Room 3 without its key; the scanner without the glove.
 - **Expected Output:** Non-numeric entries print "Please enter a valid whole number." and re-prompt. Out-of-range numbers print "Invalid choice." Yes/no prompts print "Please enter Y or N." until valid. Maze errors print "Enter one movement key at a time." or "Unknown movement key." Locked doors print "The door is locked. You need its key." and the scanner prints "You cannot operate the scanner without the rubber glove." The program never crashes and extra input is safely discarded.
+- - **Screenshot:** ![Case 8](screenshots/case8(a)_execution.png)
+  - - - **Screenshot:** ![Case 8](screenshots/case8(b)_execution.png)
